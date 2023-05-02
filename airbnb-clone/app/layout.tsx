@@ -1,9 +1,20 @@
-import './globals.css'
+import { Nunito } from "next/font/google";
+
+import "./globals.css";
+
+export const metadata = {
+  title: "Airbnb Clone",
+  description: "Airbnb Clone",
+};
+
+const font = Nunito({
+  subsets: ["latin"],
+});
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -12,7 +23,7 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body>{children}</body>
+      <body className={font.className}>{children}</body>
     </html>
-  )
+  );
 }

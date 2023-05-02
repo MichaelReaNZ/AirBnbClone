@@ -1,6 +1,7 @@
 import { Nunito } from "next/font/google";
 
 import "./globals.css";
+import Navbar from "./components/navbar/Navbar";
 
 export const metadata = {
   title: "Airbnb Clone",
@@ -18,12 +19,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
       <head />
-      <body className={font.className}>{children}</body>
+      <body className={font.className}>
+        {children}
+        <Navbar />
+      </body>
     </html>
   );
 }

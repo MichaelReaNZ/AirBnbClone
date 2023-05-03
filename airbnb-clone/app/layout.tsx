@@ -7,6 +7,7 @@ import RegisterModal from "./components/modals/RegisterModel";
 import ToasterProvider from "./providers/ToasterProvider";
 
 import { Toaster } from "react-hot-toast";
+import LoginModal from "./components/modals/LoginModel";
 
 export const metadata = {
   title: "Airbnb Clone",
@@ -29,6 +30,7 @@ export default function RootLayout({
         {/* <Model title="Hey world" isOpen actionLabel={"Submit"} /> */}
         <Toaster /> {/* <ToasterProvider /> */}
         <RegisterModal />
+        <LoginModal />
         <Navbar />
         {children}
       </body>

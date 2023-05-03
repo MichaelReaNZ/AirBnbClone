@@ -6,12 +6,14 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  // provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  // id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id           String   @id @default(uuid()) @db.Uuid
   name      String?
   email     String?   @unique
   emailVerified DateTime?
@@ -19,7 +21,8 @@ model User {
   hashedPassword String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  favoriteIds String[] @db.ObjectId
+  // favoriteIds String[] @db.ObjectId
+  favoriteIds String[] 
 
   accounts Account[]
   listing Listing[]
@@ -27,16 +30,17 @@ model User {
 }
 
 model Account {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String
+  // id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id           String   @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
+  userId    String @db.Uuid
   provider  String
   providerAccountId String
-  refresh_token String? @db.String
-  access_token String? @db.String
+  refresh_token String? 
+  access_token String? 
   expires_at Int?
   token_type String?
   scope String?
-  id_token String? @db.String
+  id_token String? 
   session_state String? 
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -45,7 +49,8 @@ model Account {
 }
 
 model Listing {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  // id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id           String   @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
   title     String
   description String
   imageSrc     String
@@ -54,7 +59,8 @@ model Listing {
   roomCount Int
   bathroomCount Int
   locationValue String
-  userId   String @db.ObjectId
+  // userId   String @db.ObjectId
+  userId   String @db.Uuid
   price Int
   
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -62,9 +68,12 @@ model Listing {
 }
 
 model Reservation{
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId   String @db.ObjectId
-  listingId   String @db.ObjectId
+  id           String   @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
+  // id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  // userId   String @db.ObjectId
+  userId   String @db.Uuid
+  // listingId   String @db.ObjectId
+  listingId   String @db.Uuid
   startDate DateTime
   endDate DateTime
   totalPrice Int

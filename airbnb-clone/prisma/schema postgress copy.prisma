@@ -6,14 +6,12 @@ generator client {
 }
 
 datasource db {
-  // provider = "mongodb"
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  // id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  id           String   @id @default(uuid()) @db.Uuid
+  id           String   @id @default(cuid()) @db.Uuid
   name      String?
   email     String?   @unique
   emailVerified DateTime?
@@ -21,7 +19,6 @@ model User {
   hashedPassword String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  // favoriteIds String[] @db.ObjectId
   favoriteIds String[] 
 
   accounts Account[]
@@ -30,9 +27,8 @@ model User {
 }
 
 model Account {
-  // id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  id           String   @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
-  userId    String @db.Uuid
+  id           String   @id @default(cuid())
+  userId    String 
   provider  String
   providerAccountId String
   refresh_token String? 
@@ -49,8 +45,7 @@ model Account {
 }
 
 model Listing {
-  // id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  id           String   @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
+  id           String   @id @default(cuid())
   title     String
   description String
   imageSrc     String
@@ -59,8 +54,7 @@ model Listing {
   roomCount Int
   bathroomCount Int
   locationValue String
-  // userId   String @db.ObjectId
-  userId   String @db.Uuid
+  userId   String 
   price Int
   
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)

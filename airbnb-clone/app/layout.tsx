@@ -2,12 +2,12 @@ import { Nunito } from "next/font/google";
 
 import "./globals.css";
 import Navbar from "./components/navbar/Navbar";
-import Model from "./components/modals/Modal";
-import RegisterModal from "./components/modals/RegisterModel";
-import ToasterProvider from "./providers/ToasterProvider";
-
 import { Toaster } from "react-hot-toast";
-import LoginModal from "./components/modals/LoginModel";
+
+import RegisterModal from "./components/modals/RegisterModal";
+import LoginModal from "./components/modals/LoginModal";
+import RentModal from "./components/modals/RentModal";
+
 import getCurrentUser from "./actions/getCurrentUser";
 
 export const metadata = {
@@ -33,6 +33,7 @@ export default async function RootLayout({
         <Toaster /> {/* <ToasterProvider /> */}
         <RegisterModal />
         <LoginModal />
+        <RentModal />
         <Navbar currentUser={currentUser} />
         {children}
       </body>

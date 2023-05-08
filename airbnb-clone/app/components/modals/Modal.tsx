@@ -36,8 +36,6 @@ const Modal: React.FC<ModalProps> = ({
     setShowModal(isOpen);
   }, [isOpen]);
 
-  
-
   const handleClose = useCallback(() => {
     if (disabled) {
       return;
@@ -69,9 +67,20 @@ const Modal: React.FC<ModalProps> = ({
     return null;
   }
 
+  // Add this function to stop the event propagation (click outside the modal)
+  const stopPropagation = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
+  if (!isOpen) {
+    return null;
+  }
+
   return (
     <>
       <div
+        // modal backdrop
+        onClick={handleClose}
         className="
           justify-center 
           items-center 
@@ -87,6 +96,7 @@ const Modal: React.FC<ModalProps> = ({
         "
       >
         <div
+          onClick={stopPropagation}
           className="
           relative 
           w-full
